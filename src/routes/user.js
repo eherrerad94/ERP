@@ -2,8 +2,6 @@ import userCtrl from '../controllers/user';
 import express from 'express';
 const app = express.Router();
 
-
-
 app.group('/auth', (router) => {
     router
         .post('/register', (req, res) => {
@@ -40,21 +38,21 @@ app.group('/auth', (router) => {
         })
 
 
-    .post('/sign_in', (req, res) => {
+        .post('/sign_in', (req, res) => {
 
-          console.log(req.body);
-        userCtrl
-            .sign_in(req.body.correo_electronico, req.body.contrasena)
-            .then(response => {
-                res
-                    .status(201)
-                    .json({ response: response })
-            })
-            .catch(err => {
-                console.log("Err ", err)
-                res.status(200).send(err)
-            });
-    });
+           // console.log(req.body);
+            userCtrl
+                .sign_in(req.body.correo_electronico, req.body.contrasena)
+                .then(response => {
+                    res
+                        .status(201)
+                        .json({ response: response })
+                })
+                .catch(err => {
+                    console.log("Err ", err)
+                    res.status(200).send(err)
+                });
+        });
 });
 
 

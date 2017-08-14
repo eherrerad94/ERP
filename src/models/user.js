@@ -11,8 +11,8 @@ const userSchema = new Schema({
     telefono: {
         type: String,
         validate: {
-            validator: function (v) {
-                return /\d{3}-\d{3}-\d{4}/.test(v); Î
+            validator: function (telephone) {
+                return /\d{3}-\d{3}-\d{4}/.test(telephone);
             },
             message: '{VALUE} is not a valid phone number!'
         },

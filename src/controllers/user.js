@@ -37,19 +37,23 @@ const sign_in = (correo_electronico, contrasena) => {
                     return { message: 'Authentication failed. Wrong password.' };
 
                 } else {
+                    let userInfo = user;
+                    userInfo.contrasena = undefined;
+                    userInfo.created = undefined;
+                    userInfo.estatus = undefined;
                     var token = jwt.sign(
                         {
-                            // correo_electronico: user.correo_electronico,
-                            // fullName: { name: user.name, lastname: user.lastname },
-                            // _id: user._id
-                            user: user
+                            user: userInfo
                         },
                         config.secretKey,
                         { expiresIn: 60 * 60 }
                     );
                     var decoded = jwt.decode(token);
 
-                    return ({ message: "Credentials are correct, here is your token", token: token, decoded: decoded });
+                    return ({
+                        message: "Credentials are correct, here is your token", token: token,
+                        // decoded: decoded 
+                    });
 
                 }
             }
@@ -61,16 +65,8 @@ const sign_in = (correo_electronico, contrasena) => {
             return message;
         })
 }
-// const login_required = (req, res, next) => {
-//     if (req.user)
-//         next();
-//     else
-//         return res.status(400).json({ message: 'Unauthorized user' });
-// }
-
 
 module.exports = {
     register,
-    sign_in,
-    // login_required
+    sign_in
 };
