@@ -51,7 +51,8 @@ const sign_in = (correo_electronico, contrasena) => {
                     var decoded = jwt.decode(token);
 
                     return ({
-                        message: "Credentials are correct, here is your token", token: token,
+                        message: "Credentials are correct, here is your token", 
+                        token: token,
                         // decoded: decoded 
                     });
 
@@ -66,7 +67,13 @@ const sign_in = (correo_electronico, contrasena) => {
         })
 }
 
+const get_user = id => {
+
+    return User.findById(id).then(user => { return user}).catch(err => {return err});
+};
+
 module.exports = {
     register,
-    sign_in
+    sign_in,
+    get_user
 };
