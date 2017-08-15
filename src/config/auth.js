@@ -1,14 +1,13 @@
-import jsonwebtoken from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import config from './db';
 
 const authorization = (req, res, next) => {
     if (req.headers && req.headers.authorization && req.headers.authorization.split(' ')[0] === 'JWT') {
-        jsonwebtoken
-            .verify(req.headers.authorization.split(' ')[1], config.secretKey, (err, decode) => {
+        jwt.verify(req.headers.authorization.split(' ')[1], config.secretKey, (err, decode) => {
                 if (err)
                     req.user = undefined;
-                req.user = decode;
-                //  console.log(decode);
+                req.user = decode.user;
+                
                 next();
             });
     }
@@ -19,7 +18,9 @@ const authorization = (req, res, next) => {
 };
 
 const login_required = (req, res, next) => {
-    let user = req.user.user;
+    let user = req.user;
+    let id = user._id;
+    
     if (user)
         next();
     else
@@ -27,16 +28,14 @@ const login_required = (req, res, next) => {
 }
 
 const admin_credentials = (req, res, next) => {
-
-    let user = req.user.user;
-    //console.log(user);
+    
+    let user = req.user;
+    let id = user._id;
     if (user)
-        if (user.cargo === 'Gerente') {
-            console.log(user.cargo);
+        if (user.cargo === 'Programador') {
             next();
         }
         else{
-            console.log(user.cargo);
             return res.status(400).json({ message: 'Invalid credentials', cargo: user.cargo });
         }
     else
