@@ -15,9 +15,9 @@
   "author": "Eduardo Herrera",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^1.0.2",
+    "bcrypt": "^5.0.1",
     "body-parser": "^1.17.2",
-    "email-templates": "^2.6.0",
+    "email-templates": "^7.1.1",
     "express": "^4.15.4",
     "express-group-routes": "^1.1.0",
     "jsonwebtoken": "^7.4.2",
